@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Cafeteria | Taste & Tradition</title>
+    <!-- Google Fonts & FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* =========================================================
+           COLOR SYSTEM (Light Café Aesthetic)
+           60% Dominant: #F9F8F6 (Warm Porcelain / Off-White)
+           30% Secondary: #FFFFFF (Pure White Cards) & #1E1915 (Espresso Text)
+           10% Accent: #D97706 / #B45309 (Rich Amber Glow)
+        ========================================================= */
+        :root {
+            --bg-light: #f9f8f6;
+            --surface-card: #ffffff;
+            --surface-hover: #f3f0ec;
+            --text-primary: #1e1915;
+            --text-secondary: #60584f;
+            --accent-amber: #d97706;
+            --accent-hover: #b45309;
+            --accent-glow: rgba(217, 119, 6, 0.15);
+            --border-line: rgba(30, 25, 21, 0.08);
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: var(--font-body);
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* --- NAVBAR --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 8%;
+            background: rgba(249, 248, 246, 0.88);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-line);
+            z-index: 1000;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: var(--text-primary);
+        }
+
+        .logo span {
+            color: var(--accent-amber);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-amber);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 8%;
+            padding-top: 90px;
+            gap: 4rem;
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--surface-card);
+            border: 1px solid var(--border-line);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            color: var(--accent-amber);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+        }
+
+        .badge-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-amber);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--accent-amber);
+        }
+
+        .hero-content h1 {
+            font-family: var(--font-heading);
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.15;
+            margin-bottom: 1.2rem;
+            color: var(--text-primary);
+        }
+
+        .hero-content h1 span {
+            color: var(--accent-amber);
+            font-style: italic;
+        }
+
+        .hero-content p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-amber);
+            color: #ffffff;
+            padding: 0.85rem 2rem;
+            border-radius: 8px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px var(--accent-glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            background-color: var(--accent-hover);
+            box-shadow: 0 6px 20px rgba(180, 83, 9, 0.3);
+        }
+
+        .btn-secondary {
+            background-color: var(--surface-card);
+            color: var(--text-primary);
+            border: 1px solid var(--border-line);
+            padding: 0.85rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--surface-hover);
+            border-color: var(--text-secondary);
+        }
+
+        /* HERO IMAGE FEATURE */
+        .hero-image-wrapper {
+            position: relative;
+        }
+
+        .hero-img-box {
+            position: relative;
+            width: 380px;
+            height: 460px;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--border-line);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            background-color: var(--surface-card);
+        }
+
+        .hero-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+            display: block;
+        }
+
+        .hero-img-box:hover img {
+            transform: scale(1.05);
+        }
+
+        .hero-image-wrapper::after {
+            content: '';
+            position: absolute;
+            top: -12px;
+            right: -12px;
+            width: 100%;
+            height: 100%;
+            border: 2px solid var(--accent-amber);
+            border-radius: 20px;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        /* --- SECTION STYLING --- */
+        section {
+            padding: 6rem 8%;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 3.5rem auto;
+        }
+
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .section-title span {
+            color: var(--accent-amber);
+        }
+
+        .section-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* --- MENU GRID --- */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2rem;
+        }
+
+        .menu-card {
+            background-color: var(--surface-card);
+            border: 1px solid var(--border-line);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+        }
+
+        .menu-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(217, 119, 6, 0.4);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+        }
+
+        .card-img-box {
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+            background-color: var(--surface-hover);
+        }
+
+        .card-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+            display: block;
+        }
+
+        .menu-card:hover .card-img-box img {
+            transform: scale(1.08);
+        }
+
+        .card-body {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .card-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-title {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .card-price {
+            color: var(--accent-amber);
+            font-weight: 800;
+            font-size: 1.1rem;
+        }
+
+        .card-desc {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1.2rem;
+            flex-grow: 1;
+        }
+
+        .card-btn {
+            background: var(--bg-light);
+            border: 1px solid var(--border-line);
+            color: var(--text-primary);
+            padding: 0.6rem;
+            border-radius: 8px;
+            font-weight: 600;
+            width: 100%;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .card-btn:hover {
+            background: var(--accent-amber);
+            border-color: var(--accent-amber);
+            color: #ffffff;
+        }
+
+        /* --- SERVICES / FEATURES --- */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .feature-box {
+            background-color: var(--surface-card);
+            border: 1px solid var(--border-line);
+            padding: 2rem;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+        }
+
+        .feature-box h3 {
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-box p {
+            color: var(--text-secondary);
+        }
+
+        .feature-box:hover {
+            background-color: #ffffff;
+            border-color: rgba(217, 119, 6, 0.3);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(217, 119, 6, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            color: var(--accent-amber);
+            margin-bottom: 1.2rem;
+        }
+
+        /* --- CONTACT --- */
+        .contact-container {
+            background: var(--surface-card);
+            border: 1px solid var(--border-line);
+            border-radius: 20px;
+            padding: 4rem 2rem;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+        }
+
+        .contact-info-grid {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin: 2.5rem 0;
+        }
+
+        .info-item {
+            background: var(--bg-light);
+            border: 1px solid var(--border-line);
+            padding: 1.2rem 1.8rem;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .info-item i {
+            font-size: 1.3rem;
+            color: var(--accent-amber);
+        }
+
+        .info-item div {
+            text-align: left;
+        }
+
+        .info-item span {
+            display: block;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+        }
+
+        .info-item a, .info-item p {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 2.5rem;
+            border-top: 1px solid var(--border-line);
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            background-color: var(--surface-card);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 850px) {
+            .hero {
+                flex-direction: column-reverse;
+                text-align: center;
+                gap: 3rem;
+            }
+
+            .hero-content h1 {
+                font-size: 2.6rem;
+            }
+
+            .btn-group {
+                justify-content: center;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero-img-box {
+                width: 290px;
+                height: 360px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav>
+        <div class="logo">MY <span>CAFETERIA</span></div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#about">Experience</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="badge">
+                <span class="badge-dot"></span>
+                Fresh Ingredients & Craft Coffee
+            </div>
+            <h1>Freshly Brewed Happiness in <span>Every Cup</span></h1>
+            <p>Welcome to My Cafeteria. We blend artisan roasting techniques with gourmet treats to give you a warm, memorable dining experience every single day.</p>
+            <div class="btn-group">
+                <a href="#menu" class="btn-primary">Explore Our Menu</a>
+                <a href="#contact" class="btn-secondary">Visit Us</a>
+            </div>
+        </div>
+
+        <div class="hero-image-wrapper">
+            <div class="hero-img-box">
+                <!-- Verbatim Coffee File -->
+                <img src="coffee.jpg" alt="Artisan Cappuccino Coffee" onerror="this.src='images/coffee.jpg'">
+            </div>
+        </div>
+    </section>
+
+    <!-- MENU SECTION -->
+    <section id="menu">
+        <div class="section-header">
+            <h2 class="section-title">Our Chef's <span>Specialties</span></h2>
+            <p class="section-subtitle">Handcrafted beverages and chef-curated bites made fresh daily.</p>
+        </div>
+
+        <div class="menu-grid">
+            <!-- Item 1: Cappuccino -->
+            <div class="menu-card">
+                <div class="card-img-box">
+                    <img src="coffee.jpg" alt="Special Cappuccino" onerror="this.src='images/coffee.jpg'">
+                </div>
+                <div class="card-body">
+                    <div class="card-header-row">
+                        <h3 class="card-title">Cinnamon Cappuccino</h3>
+                        <span class="card-price">$4.50</span>
+                    </div>
+                    <p class="card-desc">Rich espresso topped with velvety steamed milk foam and a gentle sprinkle of cinnamon.</p>
+                    <button class="card-btn">Order Now</button>
+                </div>
+            </div>
+
+            <!-- Item 2: Sandwich -->
+            <div class="menu-card">
+                <div class="card-img-box">
+                    <img src="Ham_Sandwich.jpg" alt="Gourmet Artisan Sandwich" onerror="this.onerror=null; this.src='image_735ab9.png';">
+                </div>
+                <div class="card-body">
+                    <div class="card-header-row">
+                        <h3 class="card-title">Artisan Club Sandwich</h3>
+                        <span class="card-price">$8.99</span>
+                    </div>
+                    <p class="card-desc">Layered smoked turkey breast, ripe tomatoes, fresh arugula, and house secret mustard on whole-grain bread.</p>
+                    <button class="card-btn">Order Now</button>
+                </div>
+            </div>
+
+            <!-- Item 3: Ice Cream Cake -->
+            <div class="menu-card">
+                <div class="card-img-box">
+                    <img src="ice-cream-sandwich-cake.jpg" alt="Fudge Sundae Slice" onerror="this.onerror=null; this.src='image_735de3.png';">
+                </div>
+                <div class="card-body">
+                    <div class="card-header-row">
+                        <h3 class="card-title">Chocolate Cherry Slice</h3>
+                        <span class="card-price">$6.25</span>
+                    </div>
+                    <p class="card-desc">Decadent layered ice cream cake with crushed cookie crust, chocolate fudge, and fresh cherries.</p>
+                    <button class="card-btn">Order Now</button>
+                </div>
+            </div>
+
+            <!-- Item 4: Pizza -->
+            <div class="menu-card">
+                <div class="card-img-box">
+                    <img src="Pizza-with-salami-tomatoes-olives-cheese-Nosta-restaurant-Cork.jpg" alt="Rustic Pepperoni Pizza" onerror="this.onerror=null; this.src='image_736186.png';">
+                </div>
+                <div class="card-body">
+                    <div class="card-header-row">
+                        <h3 class="card-title">Rustic Italian Pizza</h3>
+                        <span class="card-price">$12.50</span>
+                    </div>
+                    <p class="card-desc">Hand-tossed artisan crust topped with fresh mozzarella, cured salami, black olives, and fresh basil.</p>
+                    <button class="card-btn">Order Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT / FEATURES SECTION -->
+    <section id="about">
+        <div class="section-header">
+            <h2 class="section-title">Why Choose <span>Us</span></h2>
+            <p class="section-subtitle">We focus on atmosphere, quality, and community.</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-box">
+                <div class="feature-icon"><i class="fa-solid fa-mug-hot"></i></div>
+                <h3>Artisan Coffee</h3>
+                <p>100% Arabica beans ethically sourced and freshly roasted in small batches for peak flavor.</p>
+            </div>
+
+            <div class="feature-box">
+                <div class="feature-icon"><i class="fa-solid fa-utensils"></i></div>
+                <h3>Freshly Prepared</h3>
+                <p>Our kitchen uses organic ingredients to create fresh sandwiches, savory meals, and delicate pastries.</p>
+            </div>
+
+            <div class="feature-box">
+                <div class="feature-icon"><i class="fa-solid fa-wifi"></i></div>
+                <h3>Cozy Atmosphere</h3>
+                <p>High-speed Wi-Fi, comfortable seating, and ambient acoustics make it ideal for studying or social meetings.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact">
+        <div class="contact-container">
+            <h2 class="section-title">Visit <span>My Cafeteria</span></h2>
+            <p style="color: var(--text-secondary);">Drop by for your morning brew or order online for fast pickup!</p>
+
+            <div class="contact-info-grid">
+                <div class="info-item">
+                    <i class="fa-solid fa-envelope"></i>
+                    <div>
+                        <span>Email Us</span>
+                        <a href="mailto:nhsnayem6@gmail.com">nhsnayem6@gmail.com</a>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <i class="fa-solid fa-phone"></i>
+                    <div>
+                        <span>Call Us</span>
+                        <a href="tel:01939018550">01939018550</a>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <i class="fa-solid fa-clock"></i>
+                    <div>
+                        <span>Hours</span>
+                        <p>7:00 AM - 10:00 PM</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 My Cafeteria. All rights reserved. Crafted by Md. Nayem Hossain Shakib.</p>
+    </footer>
+
+</body>
+</html>
